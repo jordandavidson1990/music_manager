@@ -54,13 +54,13 @@ class Album
     SqlRunner.run(sql, values)
   end
 
-  # def self.find(id)
-  #   sql = "SELECT * FROM albums WHERE id = $1"
-  #   values = [id]
-  #   results = SqlRunner.run(sql, values)
-  #   albums_hash = results.first
-  #   album = Album.new(albums_hash)
-  #   return album
-  # end
+  def self.find(id)
+    sql = "SELECT * FROM albums WHERE id = $1"
+    values = [id]
+    results = SqlRunner.run(sql, values)
+    albums_hash = results[0]
+    album = Album.new(albums_hash)
+    return album
+  end
 
 end

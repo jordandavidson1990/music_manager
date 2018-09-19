@@ -1,10 +1,11 @@
 require('pry')
 require_relative('../models/artist')
 require_relative('../models/album')
+#delete all
 Album.delete_all()
 Artist.delete_all()
 
-
+#save artists
 artist1 = Artist.new({"artist_name" => "Aretha Franklin"})
 artist2 = Artist.new({"artist_name" => "Marvin Gaye"})
 artist3 = Artist.new({"artist_name" => "MGMT"})
@@ -17,6 +18,7 @@ artist3.save()
 artist4.save()
 artist5.save()
 
+#save new albums
 album1 = Album.new({
   "album_name" => "I Never Loved a Man the Way I Love You",
   "genre" => "Motown",
@@ -53,11 +55,23 @@ album1 = Album.new({
             "artist_id" => artist5.id
             })
             album5.save()
-            album1.update #("Blowin in the Wind", "Folk", artist6.id)
-            #  album1.save()
+            #update
+            album1.album_name = "RESPECT"
+            artist1.artist_name = "Beyonce Knowles"
+            #find artist by album
+            album1.artist
+            #find albums by artist
+            artist1.albums
+            #delete single
             album1.delete()
+            artist1.delete()
 
+            #find by id
+            album1.id
+            artist1.id
 
+# album1.artist
+# artist1.album
     # Album.find(artist1.id)
             binding.pry
             nil

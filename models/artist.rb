@@ -30,12 +30,25 @@ class Artist
     artist_objects = artist_hashes.map{|artist| Artist.new(artist)}
   end
 
-  def album()
-    sql = "SELECT * FROM albums WHERE id = $1"
+  def albums
+    sql = "SELECT * FROM albums WHERE artist_id = $1"
+    values = [@id] #meaning the ID of the artist
+    artist_albums = SqlRunner.run(sql, values)
+    return artist_albums.map{|album_hash| Album.new(album_hash)}
+  end
+
+  def self.find_by_id(id)
+    sql = "SELECT * FROM artists WHERE id = $1"
     values = [@id]
-    results = SqlRunner.run(sql, values)
-    albums_hash = results[0]
-    album = Album.new(albums_hash)
-    return album
+    result = SqlRunner.run(sql, values)
+    @id = result[0]["id"].to_i  # database object saved/held here
+    result_hash = result[0]  # converted here from database object to a ruby object
+    return Artist.new(result_hash)
+  end
+
+  def delete()
+    sql = "DELETE FROM artists WHERE id = $1"
+    values = [@id]
+    SqlRunner.run(sql, values)
   end
 end
